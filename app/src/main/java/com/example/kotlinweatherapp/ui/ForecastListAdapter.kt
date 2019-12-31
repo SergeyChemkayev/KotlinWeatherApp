@@ -11,10 +11,10 @@ class ForecastListAdapter(private val weekForecast: ForecastList) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(TextView(parent.context))
 
-    override fun getItemCount(): Int = weekForecast.dailyForecast.size
+    override fun getItemCount(): Int = weekForecast.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        with(weekForecast.dailyForecast[position]){
+        with(weekForecast[position]){
             holder.textView.text = "$date - $description - $high/$low"
         }
     }
