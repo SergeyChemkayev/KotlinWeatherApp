@@ -10,7 +10,7 @@ import org.jetbrains.anko.db.select
 
 class ForecastDb(
     private val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.instance,
-    private val dataMappper: DbDataMapper = DbDataMapper()
+    private val dataMapper: DbDataMapper = DbDataMapper()
 ) {
     fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
         val dailyRequest = "${DayForecastTable.CITY_ID} = ? AND ${DayForecastTable.NAME} >= ?"
@@ -22,13 +22,13 @@ class ForecastDb(
         val city = select(CityForecastTable.NAME)
             .whereSimple("${CityForecastTable.ID} = ?", zipCode.toString())
             .parseOpt { CityForecast(HashMap(it), dailyForecast) }
-        if (city != null) dataMappper.convertToDomain(city) else null
+        if (city != null) dataMapper.convertToDomain(city) else null
     }
 
     fun saveForecast(forecast: ForecastList) = forecastDbHelper.use {
         clear(CityForecastTable.NAME)
         clear(DayForecastTable.NAME)
-        with(dataMappper.convertFromDomain(forecast)) {
+        with(dataMapper.convertFromDomain(forecast)) {
             insert(CityForecastTable.NAME, *map.toVarargArray())
             dailyForecast.forEach {
                 insert(DayForecastTable.NAME, *it.map.toVarargArray())
