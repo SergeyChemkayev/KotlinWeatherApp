@@ -1,5 +1,6 @@
 package com.example.kotlinweatherapp.data.db
 
+import com.example.kotlinweatherapp.domain.datasource.ForecastDataSource
 import com.example.kotlinweatherapp.domain.model.ForecastList
 import com.example.kotlinweatherapp.extensions.clear
 import com.example.kotlinweatherapp.extensions.parseList
@@ -11,8 +12,9 @@ import org.jetbrains.anko.db.select
 class ForecastDb(
     private val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.instance,
     private val dataMapper: DbDataMapper = DbDataMapper()
-) {
-    fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
+) : ForecastDataSource {
+
+    override fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
         val dailyRequest = "${DayForecastTable.CITY_ID} = ? AND ${DayForecastTable.NAME} >= ?"
         val dailyForecast = select(DayForecastTable.NAME)
             .whereSimple(dailyRequest, zipCode.toString(), date.toString())
