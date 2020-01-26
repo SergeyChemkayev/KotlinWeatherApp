@@ -35,7 +35,7 @@ class ForecastListAdapter(
         fun bindForecast(forecast: Forecast) {
             with(forecast) {
                 Picasso.get().load(iconUrl).into(containerView.icon)
-                containerView.date.text = date
+                containerView.date.text = date.toString()
                 containerView.description.text = description
                 containerView.maxTemperature.text =
                     itemView.resources.getString(R.string.temperature, high)
