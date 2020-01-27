@@ -1,5 +1,6 @@
 package com.example.kotlinweatherapp.ui
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinweatherapp.R
 import com.example.kotlinweatherapp.domain.model.Forecast
 import com.example.kotlinweatherapp.domain.model.ForecastList
+import com.example.kotlinweatherapp.extensions.toDateString
 import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_forecast.view.*
@@ -23,11 +25,12 @@ class ForecastListAdapter(
         return ViewHolder(view, itemClick)
     }
 
-    override fun getItemCount() = weekForecast.size
-
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindForecast(weekForecast[position])
     }
+
+    override fun getItemCount() = weekForecast.size
 
     class ViewHolder(override val containerView: View, private val itemClick: (Forecast) -> Unit) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
@@ -35,7 +38,7 @@ class ForecastListAdapter(
         fun bindForecast(forecast: Forecast) {
             with(forecast) {
                 Picasso.get().load(iconUrl).into(containerView.icon)
-                containerView.date.text = date.toString()
+                containerView.date.text = date.toDateString()
                 containerView.description.text = description
                 containerView.maxTemperature.text =
                     itemView.resources.getString(R.string.temperature, high)

@@ -7,26 +7,28 @@ import org.jetbrains.anko.db.*
 
 class ForecastDbHelper(ctx: Context = App.instance) : ManagedSQLiteOpenHelper(
     ctx,
-    ForecastDbHelper.DB_NAME,
+    DB_NAME,
     null,
-    ForecastDbHelper.DB_VERSION
+    DB_VERSION
 ) {
+
     companion object {
         const val DB_NAME = "forecast.db"
         const val DB_VERSION = 1
         val instance by lazy { ForecastDbHelper() }
     }
 
-    override fun onCreate(db: SQLiteDatabase?) {
-        db?.createTable(
+    override fun onCreate(db: SQLiteDatabase) {
+        db.createTable(
             CityForecastTable.NAME, true,
             CityForecastTable.ID to INTEGER + PRIMARY_KEY,
             CityForecastTable.CITY to TEXT,
             CityForecastTable.COUNTRY to TEXT
         )
-        db?.createTable(
+
+        db.createTable(
             DayForecastTable.NAME, true,
-            DayForecastTable.ID to INTEGER + PRIMARY_KEY,
+            DayForecastTable.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
             DayForecastTable.DATE to INTEGER,
             DayForecastTable.DESCRIPTION to TEXT,
             DayForecastTable.HIGH to INTEGER,
@@ -36,9 +38,9 @@ class ForecastDbHelper(ctx: Context = App.instance) : ManagedSQLiteOpenHelper(
         )
     }
 
-    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        db?.dropTable(CityForecastTable.NAME, true)
-        db?.dropTable(DayForecastTable.NAME, true)
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        db.dropTable(CityForecastTable.NAME, true)
+        db.dropTable(DayForecastTable.NAME, true)
         onCreate(db)
     }
 }

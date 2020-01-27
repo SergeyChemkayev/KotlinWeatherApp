@@ -1,14 +1,14 @@
 package com.example.kotlinweatherapp.data.db
 
-object CityForecastTable{
+object CityForecastTable {
     const val NAME = "CityForecast"
     const val ID = "_id"
     const val CITY = "city"
-    const val COUNTRY  = "country"
+    const val COUNTRY = "country"
 }
 
-object DayForecastTable{
-    const val NAME  = "DayForecast"
+object DayForecastTable {
+    const val NAME = "DayForecast"
     const val ID = "_id"
     const val DATE = "date"
     const val DESCRIPTION = "description"

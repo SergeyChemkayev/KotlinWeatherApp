@@ -1,4 +1,4 @@
-package com.example.kotlinweatherapp.data
+package com.example.kotlinweatherapp.data.server
 
 data class ForecastResult(val city: City, val list: List<Forecast>)
 
@@ -13,15 +13,8 @@ data class City(
 data class Coordinates(val lon: Float, val lat: Float)
 
 data class Forecast(
-    val dt: Long,
-    val temp: Temperature,
-    val pressure: Float,
-    val humidity: Int,
-    val weather: List<Weather>,
-    val speed: Float,
-    val deg: Int,
-    val clouds: Int,
-    val rain: Float
+    val dt: Long, val temp: Temperature, val pressure: Float, val humidity: Int,
+    val weather: List<Weather>, val speed: Float, val deg: Int, val clouds: Int, val rain: Float
 )
 
 data class Temperature(

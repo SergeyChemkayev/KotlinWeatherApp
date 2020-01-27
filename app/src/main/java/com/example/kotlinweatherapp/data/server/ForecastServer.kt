@@ -1,9 +1,7 @@
 package com.example.kotlinweatherapp.data.server
 
-import com.example.kotlinweatherapp.data.ForecastByZipCodeRequest
 import com.example.kotlinweatherapp.data.db.ForecastDb
 import com.example.kotlinweatherapp.domain.datasource.ForecastDataSource
-import com.example.kotlinweatherapp.domain.mappers.ServerDataMapper
 import com.example.kotlinweatherapp.domain.model.ForecastList
 
 class ForecastServer(
@@ -17,4 +15,6 @@ class ForecastServer(
         forecastDb.saveForecast(converted)
         return forecastDb.requestForecastByZipCode(zipCode, date)
     }
+
+    override fun requestDayForecast(id: Long) = throw UnsupportedOperationException()
 }
