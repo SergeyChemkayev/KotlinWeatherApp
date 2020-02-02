@@ -3,6 +3,7 @@ package com.example.kotlinweatherapp.ui
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.example.kotlinweatherapp.R
 import com.example.kotlinweatherapp.domain.commands.RequestDayForecastCommand
@@ -14,7 +15,11 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.text.DateFormat
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : AppCompatActivity(), ToolbarManager {
+
+    override val toolbar: Toolbar by lazy {
+        findViewById<Toolbar>(R.id.toolbar)
+    }
 
     companion object {
         const val ID = "DetailActivity:id"
@@ -24,7 +29,9 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-        title = intent.getStringExtra(CITY_NAME)
+        initToolbar()
+        toolbarTitle = intent.getStringExtra(CITY_NAME) ?: ""
+        enableHomeAsUp { onBackPressed() }
         doAsync {
             val result = RequestDayForecastCommand(intent.getLongExtra(ID, -1)).execute()
             uiThread {
