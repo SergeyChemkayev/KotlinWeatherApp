@@ -1,5 +1,6 @@
 package com.example.kotlinweatherapp.ui
 
+import android.content.Intent
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +22,12 @@ interface ToolbarManager {
         toolbar.inflateMenu(R.menu.menu_main)
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.action_settings -> App.instance.toast(R.string.settings)
+                R.id.action_settings -> toolbar.context.startActivity(
+                    Intent(
+                        toolbar.context,
+                        SettingsActivity::class.java
+                    )
+                )
                 else -> App.instance.toast("Unknown option")
             }
             true

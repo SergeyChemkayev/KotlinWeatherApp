@@ -13,6 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.SettingsActivity"
+            android:label="@string/settings"/>
         <activity
             android:name=".ui.DetailActivity"
             android:parentActivityName=".ui.MainActivity">
