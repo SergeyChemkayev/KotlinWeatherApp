@@ -2,7 +2,6 @@ package com.example.kotlinweatherapp.ui
 
 import android.os.Bundle
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.example.kotlinweatherapp.R
@@ -12,8 +11,6 @@ import com.example.kotlinweatherapp.extensions.toDateString
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.coroutines.launch
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import java.text.DateFormat
 
 class DetailActivity : CoroutineScopeActivity(), ToolbarManager {
