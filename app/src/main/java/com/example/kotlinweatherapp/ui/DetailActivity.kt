@@ -11,11 +11,12 @@ import com.example.kotlinweatherapp.domain.model.Forecast
 import com.example.kotlinweatherapp.extensions.toDateString
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.text.DateFormat
 
-class DetailActivity : AppCompatActivity(), ToolbarManager {
+class DetailActivity : CoroutineScopeActivity(), ToolbarManager {
 
     override val toolbar: Toolbar by lazy {
         findViewById<Toolbar>(R.id.toolbar)
@@ -32,11 +33,9 @@ class DetailActivity : AppCompatActivity(), ToolbarManager {
         initToolbar()
         toolbarTitle = intent.getStringExtra(CITY_NAME) ?: ""
         enableHomeAsUp { onBackPressed() }
-        doAsync {
+        launch {
             val result = RequestDayForecastCommand(intent.getLongExtra(ID, -1)).execute()
-            uiThread {
-                bindForecast(result)
-            }
+            bindForecast(result)
         }
     }
 
