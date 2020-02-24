@@ -6,11 +6,11 @@ import com.example.kotlinweatherapp.domain.model.Forecast
 import com.example.kotlinweatherapp.domain.model.ForecastList
 import com.example.kotlinweatherapp.extensions.firstResult
 
-class ForecastProvider(private val sources: List<ForecastDataSource> = ForecastProvider.SOURCES) {
+class ForecastProvider(private val sources: List<ForecastDataSource> = SOURCES) {
 
     companion object {
         const val DAY_IN_MILLIS = 1000 * 60 * 60 * 24
-        val SOURCES = listOf(ForecastDb(), ForecastServer())
+        val SOURCES by lazy { listOf(ForecastDb(), ForecastServer()) }
     }
 
     fun requestByZipCode(zipCode: Long, days: Int): ForecastList = requestToSources {
